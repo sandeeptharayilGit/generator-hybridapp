@@ -1,0 +1,11 @@
+{
+  "appenders": [
+   {
+      "type": "file",
+      "filename": "logs/<%= app_name %>.log",
+      "maxLogSize": 20480,
+      "backups": 10,
+      "category": "appLogger"  
+    }
+  ]
+}

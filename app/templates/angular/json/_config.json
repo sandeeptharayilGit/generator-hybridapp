@@ -1,0 +1,55 @@
+{
+    "Common": {
+        "AppConstants": {
+            "APP_NAME": "<%= app_name %>",
+            "APP_VERSION": "0.1"
+        },
+        "Messages": {
+            "LOGIN_ERROR": "Error in Login"
+        },
+        "PeripheralConstants": {
+            "SCANNER_ID": "Scanner1"
+        }
+    },
+    "Global": {
+        "Routes": {
+            "otherwise": {
+                "redirectTo": "/<%= defaultView_name %>"
+            },
+            "/<%= defaultView_name %>": {
+                "settings": {
+                    "templateUrl": "views/<%= defaultView_name %>.html",
+                    "controller": "<%= app_name %>-<%= defaultView_name %>Cntrl"
+                },
+                "config": {
+                    "header": "",
+                    "bodyColor": "gray"
+                }
+            }
+        }
+    },
+    "Env": {
+        "app": {
+            "ApiConstants": {
+                "BASE_URL": "http://abc.pqr.com:8180/xyz/",
+                "API_DETAILS": {
+                    "<%= action %>": {
+                        "url": "<%= actionUrl %>",
+                        "method": "<%= actionMethod %>"
+                    }
+                }
+            }
+        },
+        "debug": {
+            "ApiConstants": {
+                "BASE_URL": "/scripts/json/",
+                "API_DETAILS": {
+                    "<%= action %>": {
+                        "url": "<%= action %>.json",
+                        "method": "<%= actionMethod %>"
+                    }
+                }
+            }
+        }
+    }
+}
