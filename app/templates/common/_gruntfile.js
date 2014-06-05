@@ -1,32 +1,67 @@
 var qs = require('querystring');
+var fs = require('fs');
+var generateApp = function(data) {
+	console.log(data);
+	fs.writeFile("generator/config.json", JSON.stringify(data, null, '\t'), function(err) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log("The config.json created!");
+			var exec = require('child_process').exec, child;
 
+			child = exec('yo hybridapp', function(error, stdout, stderr) {
+				console.log('stdout: ' + stdout);
+				console.log('stderr: ' + stderr);
+				if (error !== null) {
+					console.log('exec error: ' + error);
+				}
+			});
+		}
+	});
+},
+mountFolder = function(connect, dir) {
+	return connect.static(require('path').resolve(dir));
+},
+mountGenerate = function(req, res, next) {
 
-var setLog = function(log) {
+	console.log("Requesting... " + req.url);
+	if (req.url !== '/generate') return next();
 
-	switch (log.mode) {
-	case 'trace':
-		logger.trace(log.data);
-		break;
-	case 'debug':
-		logger.debug(log.data);
-		break;
-	case 'info':
-		logger.info(log.data);
-		break;
-	case 'warn':
-		logger.warn(log.data);
-		break;
-	case 'error':
-		logger.error(log.data);
-		break;
-	case 'fatal':
-		logger.fatal(log.data);
-		break;
-	default:
-		logger.info(log.data);
+	if (req.method == 'POST') {
+		var body = '';
+		req.on('data', function(data) {
+			body += data;
+		});
+		req.on('end', function() {
+			generateApp(JSON.parse(body));
+		});
 	}
+	res.statusCode = 200;
+	res.end();
+},
+mountLogger = function(setLog) {
+	return function(req, res, next) {
+		console.log("Requesting... " + req.url);
+		if (req.url !== '/log') return next();
 
-}
+		if (req.method == 'POST') {
+			var body = '';
+			req.on('data', function(data) {
+				body += data;
+				// 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
+				if (body.length > 1e6) {
+					// FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
+					req.connection.destroy();
+				}
+			});
+			req.on('end', function() {
+				setLog(JSON.parse(qs.parse(body).message));
+			});
+		}
+		res.statusCode = 200;
+		res.end();
+	};
+};
 
 module.exports = function(grunt) {
 	grunt.initConfig({
@@ -52,13 +87,9 @@ module.exports = function(grunt) {
 		    }
 	    },
 	    wiredep : {
-
 		    target : {
-
-		        // Point to the files that should be updated when
-		        // you run `grunt wiredep`
-		        src : [ 'build/index.html' // .html support..
-		        ],
+		        // Point to the files that should be updated when you run `grunt wiredep`
+		        src : [ 'build/index.html'  ], // .html support..
 
 		        // Optional:
 		        // ---------
@@ -88,62 +119,23 @@ module.exports = function(grunt) {
 		            open : true,
 		            port : 9001,
 		            base : 'build',
-		            directory : 'build',
-		            middleware : function() {
-			            var middleware = [];
+		            middleware : function(connect, options) {
 			            var log4js = require('log4js');
-							log4js.configure('log4js_configuration.json', {});
-						var logger = log4js.getLogger('appLogger');
-							logger.setLevel('INFO');
-
-			            middleware.push(function(req, res, next) {
-
-				            console.log("Requesting... " + req.url);
-				            if (req.url == "/") {
-					            res.setHeader("Content-type", "text/html");
-					            res.end(grunt.file.read("build/index.html"));
-				            } else if (req.url == '/log') {
-					            if (req.method == 'POST') {
-						            var body = '';
-						            req.on('data', function(data) {
-							            body += data;
-							            // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
-							            if (body.length > 1e6) {
-								            // FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
-								            req.connection.destroy();
-							            }
-						            });
-						            req.on('end', function() {
-
-							            setLog(JSON.parse(qs.parse(body).message));
-
-						            });
-					            }
-					            res.statusCode = 200;
-					            res.end();
-				            } else {
-					            var urlArr = req.url.split('.')
-
-					            if (urlArr[urlArr.length - 1] == 'css') {
-						            res.setHeader("Content-type", "text/css");
-					            } else if (urlArr[urlArr.length - 1] == 'html') {
-						            res.setHeader("Content-type", "text/html");
-					            } else if (urlArr[urlArr.length - 1] == 'js') {
-						            res.setHeader("Content-type", "application/javascript");
-					            }
-
-					            res.end(grunt.file.read("build" + req.url));
+			            log4js.configure('log4js_configuration.json', {});
+			            var logger = log4js.getLogger('appLogger');
+			            logger.setLevel('INFO');
+			            var setLog = function(log) {
+				            switch (log.mode) {
+				            case 'trace':logger.trace(log.data);break;
+				            case 'debug':logger.debug(log.data);break;
+				            case 'info':logger.info(log.data);break;
+				            case 'warn':logger.warn(log.data);break;
+				            case 'error':logger.error(log.data);break;
+				            case 'fatal':logger.fatal(log.data);break;
+				            default:logger.info(log.data);
 				            }
-				            // return next();
-
-			            });
-
-			            middleware.push(function(req, res) {
-				            res.statusCode = 404;
-				            res.end("Not Found");
-			            });
-
-			            return middleware;
+			            };
+			            return [ mountLogger(setLog), mountFolder(connect, options.base)];
 		            }
 		        }
 	        },
@@ -153,41 +145,12 @@ module.exports = function(grunt) {
 		            open : true,
 		            port : 7777,
 		            base : 'generator',
-		            directory : 'generator'//,
-		            // middleware : function() {
-			           //  var middleware = [];
-
-			           //  middleware.push(function(req, res, next) {
-
-				          //   console.log("Requesting... " + req.url);
-				          //   if (req.url == "/") {
-					         //    res.setHeader("Content-type", "text/html");
-					         //    res.end(grunt.file.read("generator/index.html"));
-				          //   } else {
-					         //    var urlArr = req.url.split('.')
-
-					         //    if (urlArr[urlArr.length - 1] == 'css') {
-						        //     res.setHeader("Content-type", "text/css");
-					         //    } else if (urlArr[urlArr.length - 1] == 'html') {
-						        //     res.setHeader("Content-type", "text/html");
-					         //    } else if (urlArr[urlArr.length - 1] == 'js') {
-						        //     res.setHeader("Content-type", "application/javascript");
-					         //    }else if (urlArr[urlArr.length - 1] == 'jpeg'|| urlArr[urlArr.length - 1] == 'jpg') {
-						        //     res.setHeader("Content-type", "image/jpeg");
-					         //    }
-
-					         //    res.end(grunt.file.read("generator" + req.url));
-				          //   }
-				          //   //return next();
-
-			           //  });
-
-			           //  return middleware;
-		            // }
+		            middleware : function(connect, options) {
+			            return [ mountGenerate, mountFolder(connect, options.base)];
+		            }
 		        }
-
 	        }
-	    },
+	    }
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-connect');
@@ -200,5 +163,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('server', [ 'connect:server' ]);
 	grunt.registerTask('generator', [ 'connect:generator' ]);
 	grunt.registerTask('build', [ 'concat', 'ngmin', 'copy', 'cssmin', 'wiredep' ]);
-	grunt.registerTask('default', [ 'build' ]);
-};
+	grunt.registerTask('default', [ 'build','server' ]);
+}

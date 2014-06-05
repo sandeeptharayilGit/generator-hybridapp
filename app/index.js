@@ -35,7 +35,7 @@ var HybridappGenerator = yeoman.generators.Base.extend({
       // Now you can bind to the dependencies installed event
       this.on('dependenciesInstalled', function() {
            if (isGeneratorReady) {
-                this.spawnCommand('grunt', [ 'build', 'serve' ]);
+                this.spawnCommand('grunt', [ 'build', 'server' ]);
             }else{
                this.spawnCommand('grunt', [ 'generator' ]);
             }
@@ -47,8 +47,8 @@ var HybridappGenerator = yeoman.generators.Base.extend({
       // Have Yeoman greet the user.
       this.log(yosay('Welcome to the marvelous Hybrid web application generator!'));
       try {
-        if (fs.existsSync(path.join(process.cwd(), 'config.json'))) {
-          this.config = require(path.join(process.cwd(), 'config.json'));
+        if (fs.existsSync(path.join(process.cwd(), 'generator/config.json'))) {
+          this.config = require(path.join(process.cwd(), 'generator/config.json'));
           isGeneratorReady=true;
         } else {
             isGeneratorReady=false;
@@ -61,7 +61,7 @@ var HybridappGenerator = yeoman.generators.Base.extend({
         console.log(e);
       }
       this.appName = this.config.appName;
-      this.bootstrap = this.config.bootstrap;
+      this.bootstrap = this.config.rwdFramework;
       this.framework = this.config.framework;
       framework = this.config.framework;
       this.defaultView = this.config.defaultView;
@@ -87,6 +87,9 @@ var HybridappGenerator = yeoman.generators.Base.extend({
         this.copy('common/_gruntfile.js', 'Gruntfile.js');
         this.copy('common/_bg.jpg', 'generator/images/bg.jpg');
         this.copy('common/_favicon.ico', 'generator/favicon.ico');
+        this.copy('common/_angular.min.js', 'generator/angular.min.js');
+        this.copy('common/_generator.js', 'generator/generator.js');
+        this.copy('common/_bootstrap.min.css', 'generator/bootstrap.min.css');
         
         this.template("common/_package.json", "package.json", this.context);
       }

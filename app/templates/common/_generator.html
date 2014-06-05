@@ -1,14 +1,12 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="generator">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
 <title></title>
-<link
-	href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="bootstrap.min.css" rel="stylesheet">
 <style class="custom-css">
 #jumbo {
 	background-image: url(images/bg.jpg);
@@ -30,93 +28,152 @@
 </style>
 </head>
 
-<body>
-	<div id="jumbo" class="jumbotron">
+<body ng-controller="mainController">
+	<div id="jumbo" class="jumbotron"
+		style="padding-top: 3%; padding-bottom: 3%;">
 		<div class="container">
 			<h1>Hybrid Application Generator!</h1>
 			<p>Your application is a click away.</p>
 		</div>
 	</div>
-	<div class="container">
-		<!-- Example row of columns -->
-		<div class="row">
-			<div class="col-md-6">
-				<div class="col-md-12">
-					<h3>Application Name</h3>
-					<input type="text" class="form-control" autocomplete="off">
-					<div class="form-group"></div>
-				</div>
-				<div class="col-md-12">
-					<div class="form-group"></div>
-					<h3>Front-end MVC Framework</h3>
-					<select class="form-control" id="framework">
-						<option value="angular">Angular Js</option>
-						<option value="backbone">Backbone</option>
-						<option value="chromeapp">ChromeApp</option>
-					</select>
-				</div>
-				<div class="col-md-12">
-					<h3>RWD framework</h3>
-					<select class="form-control">
-						<option value="bootstrap">Bootstrap</option>
-						<option value="foundation">Foundation</option>
-					</select>
-				</div>
-				<div class="col-md-12">
-					<div class="form-group"></div>
-					<h3>Proxy Url (if any)</h3>
-					<input type="text" class="form-control">
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="col-md-12">
-					<div class="container">
-						<div class="panel panel-default">
+	<div ng-show="page==1">
+		<div class="container">
+			<!-- Example row of columns -->
+			<div class="row">
+				<div class="col-md-6">
+					<div class="col-md-12">
+						<div class="panel panel-primary ">
 							<div class="panel-heading">
-								<h3 class="panel-title">Views</h3>
+								<h3 class="panel-title">Application Name</h3>
 							</div>
 							<div class="panel-body" autocomplete="off">
 								<div class="form-group">
-									<br>
-									<div class="row">
-										<div class="col-md-10">
-											<input type="text" class="form-control pull-left">
-										</div>
-										<div class="col-md-2">
-											<a href="#" class="btn btn-danger btn-sm pull-right">Delete!</a>
-										</div>
-
-									</div>
-									<br> <a href="#" class="btn btn-primary btn-sm pull-left">Add!</a>
+									<input type="text" ng-model='ConfigData.appName'
+										class="form-control" autocomplete="off">
 								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Front-end MVC Framework</h3>
+							</div>
+							<div class="panel-body" autocomplete="off">
+								<select class="form-control" id="framework"
+									ng-model="ConfigData.framework">
+									<option value="{{framework.value}}"
+										ng-selected="{{framework.value==ConfigData.framework}}"
+										ng-repeat="framework in frameworkList">{{framework.text}}</option>
+								</select>
+								<div class="form-group"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">RWD framework</h3>
+							</div>
+							<div class="panel-body" autocomplete="off">
+								<select class="form-control" id="rwd"
+									ng-model="ConfigData.rwdFramework">
+									<option value="{{rwd.value}}"
+										ng-selected="{{rwd.value==ConfigData.rwdFramework}}"
+										ng-repeat="rwd in rwdList">{{rwd.text}}</option>
+								</select>
+								<div class="form-group"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Proxy Url (if any)</h3>
+							</div>
+							<div class="panel-body" autocomplete="off">
+								<input type="text" ng-model="ConfigData.proxy"
+									class="form-control" />
+								<div class="form-group"></div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
+	<div ng-show="page==2">
+<div class="container">
+		<!-- Example row of columns -->
+		<div class="row">
+			<div class="col-md-5">
+				
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Views</h3>
+						</div>
+						<div class="panel-body" autocomplete="off">
+							<div class="form-group">
+								<label> Welcome page </label> <input type="text"
+									autocomplete="off" ng-model="ConfigData.defaultView"
+									class="form-control ng-pristine ng-valid">
+							</div>
+							<div class="form-group">
+								<br>
+								<div class="row" ng-repeat="view in ConfigData.views track by $index">
+									<div class="col-md-10">
+										<input type="text" ng-model="ConfigData.views[$index]"
+											class="form-control pull-left">
+									</div>
+									<div class="col-md-2">
+										<a href="#" class="btn btn-danger btn-sm pull-right" ng-click="deleteView($index)">Delete!</a>
+									</div>
+								</div>
+								<br>
+								<button ng-click="addView()"
+									class="btn btn-primary btn-sm pull-left">Add!</button>
+							</div>
+						</div>
+					</div>
+							</div>
+			<div class="col-md-7"></div>
+		</div>
+</div>
+
+	</div>
+	<div class="row">
+		<div class="col-md-4"></div>
+
+		<div class="col-md-4 alert alert-danger" ng-show="error"
+			style="text-align: center;">
+			<strong>{{errorMessage}}</strong>
+		</div>
+
+		<div class="col-md-4"></div>
+	</div>
+
 	<hr>
 	<div class="container">
-		
+
 		<div class="row">
-		<div class="col-md-4">
+			<div ng-class="{true:'col-md-4', false:'col-md-2'}[page==1]"></div>
+			<button class="col-md-4 btn btn-success btn-lg" ng-show="page>1"
+				ng-click="page=page-1">Back</button>
+			<button class="col-md-4 btn btn-success btn-lg"
+				ng-click="buttonclick()">{{page<2?"Next":"Generate"}}</button>
+
+
+			<div ng-class=" {true:'col-md-4', false:'col-md-2'}[page==1]">
+			</div>
 		</div>
-		
-		 <a href="#" class="col-md-4 btn btn-success btn-lg">Generate!</a>
-		
-		<div class="col-md-4">
-		</div>
-		</div>
-		</div>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-		
-	</script>
-	<script
-		src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js">
-		
+	</div>
+	<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script-->
+	<script src="angular.min.js"></script>
+	<script src="generator.js"></script>
+
 	</script>
 </body>
 </html>
