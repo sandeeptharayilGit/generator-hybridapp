@@ -1,0 +1,291 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'publish' ]
+2 info using npm@1.3.24
+3 info using node@v0.10.25
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose publish [ '.' ]
+6 verbose cache add [ '.', null ]
+7 verbose cache add name=undefined spec="." args=[".",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: '.',
+8 verbose parsed url   path: '.',
+8 verbose parsed url   href: '.' }
+9 silly lockFile 3a52ce78- .
+10 verbose lock . C:\Users\sandeep_ts\AppData\Roaming\npm-cache\3a52ce78-.lock
+11 verbose tar pack [ 'C:\\Users\\sandeep_ts\\AppData\\Local\\Temp\\npm-1872-tHpWSin_\\1402047967742-0.20339130819775164\\tmp.tgz',
+11 verbose tar pack   '.' ]
+12 verbose tarball C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\tmp.tgz
+13 verbose folder .
+14 info prepublish generator-hybridapp@0.0.1
+15 silly lockFile 1f1177db-tar tar://.
+16 verbose lock tar://. C:\Users\sandeep_ts\AppData\Roaming\npm-cache\1f1177db-tar.lock
+17 silly lockFile 93b79880-7742-0-20339130819775164-tmp-tgz tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\tmp.tgz
+18 verbose lock tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\tmp.tgz C:\Users\sandeep_ts\AppData\Roaming\npm-cache\93b79880-7742-0-20339130819775164-tmp-tgz.lock
+19 silly lockFile 1f1177db-tar tar://.
+20 silly lockFile 1f1177db-tar tar://.
+21 silly lockFile 93b79880-7742-0-20339130819775164-tmp-tgz tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\tmp.tgz
+22 silly lockFile 93b79880-7742-0-20339130819775164-tmp-tgz tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\tmp.tgz
+23 verbose tar unpack C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\tmp.tgz
+24 silly lockFile 795ccae0-7742-0-20339130819775164-package tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\package
+25 verbose lock tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\package C:\Users\sandeep_ts\AppData\Roaming\npm-cache\795ccae0-7742-0-20339130819775164-package.lock
+26 silly lockFile 93b79880-7742-0-20339130819775164-tmp-tgz tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\tmp.tgz
+27 verbose lock tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\tmp.tgz C:\Users\sandeep_ts\AppData\Roaming\npm-cache\93b79880-7742-0-20339130819775164-tmp-tgz.lock
+28 silly gunzTarPerm modes [ '755', '644' ]
+29 silly gunzTarPerm extractEntry package.json
+30 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+31 silly gunzTarPerm extractEntry README.md
+32 silly gunzTarPerm modified mode [ 'README.md', 438, 420 ]
+33 silly gunzTarPerm extractEntry app/index.js
+34 silly gunzTarPerm modified mode [ 'app/index.js', 438, 420 ]
+35 silly gunzTarPerm extractEntry app/config.json
+36 silly gunzTarPerm modified mode [ 'app/config.json', 438, 420 ]
+37 silly gunzTarPerm extractEntry app/templates/angular/css/_main.css
+38 silly gunzTarPerm modified mode [ 'app/templates/angular/css/_main.css', 438, 420 ]
+39 silly gunzTarPerm extractEntry app/templates/angular/css/_section.css
+40 silly gunzTarPerm modified mode [ 'app/templates/angular/css/_section.css', 438, 420 ]
+41 silly gunzTarPerm extractEntry app/templates/angular/htmls/_body.html
+42 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_body.html', 438, 420 ]
+43 silly gunzTarPerm extractEntry app/templates/angular/htmls/_footer.html
+44 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_footer.html', 438, 420 ]
+45 silly gunzTarPerm extractEntry app/templates/angular/htmls/_header.html
+46 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_header.html', 438, 420 ]
+47 silly gunzTarPerm extractEntry app/templates/angular/htmls/_login.html
+48 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_login.html', 438, 420 ]
+49 silly gunzTarPerm extractEntry app/templates/angular/htmls/_menu.html
+50 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_menu.html', 438, 420 ]
+51 silly gunzTarPerm extractEntry app/templates/angular/htmls/_section.html
+52 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_section.html', 438, 420 ]
+53 silly gunzTarPerm extractEntry app/templates/angular/htmls/_view.html
+54 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_view.html', 438, 420 ]
+55 silly gunzTarPerm extractEntry app/templates/angular/images/_loader.gif
+56 silly gunzTarPerm modified mode [ 'app/templates/angular/images/_loader.gif', 438, 420 ]
+57 silly gunzTarPerm extractEntry app/templates/angular/js/_app.js
+58 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_app.js', 438, 420 ]
+59 silly gunzTarPerm extractEntry app/templates/angular/js/_commonServices.js
+60 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_commonServices.js', 438, 420 ]
+61 silly gunzTarPerm extractEntry app/templates/angular/js/_Controller.js
+62 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_Controller.js', 438, 420 ]
+63 silly gunzTarPerm extractEntry app/templates/angular/js/_errorHandler.js
+64 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_errorHandler.js', 438, 420 ]
+65 silly gunzTarPerm extractEntry app/templates/angular/js/_gruntfile.js
+66 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_gruntfile.js', 438, 420 ]
+67 silly gunzTarPerm extractEntry app/templates/angular/js/_interceptor.js
+68 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_interceptor.js', 438, 420 ]
+69 silly gunzTarPerm extractEntry app/templates/angular/js/_loginController.js
+70 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_loginController.js', 438, 420 ]
+71 silly gunzTarPerm extractEntry app/templates/angular/js/_mainController.js
+72 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_mainController.js', 438, 420 ]
+73 silly gunzTarPerm extractEntry app/templates/angular/json/_app.json
+74 silly gunzTarPerm modified mode [ 'app/templates/angular/json/_app.json', 438, 420 ]
+75 silly gunzTarPerm extractEntry app/templates/angular/json/_bower.json
+76 silly gunzTarPerm modified mode [ 'app/templates/angular/json/_bower.json', 438, 420 ]
+77 silly gunzTarPerm extractEntry app/templates/angular/json/_config.json
+78 silly gunzTarPerm modified mode [ 'app/templates/angular/json/_config.json', 438, 420 ]
+79 silly gunzTarPerm extractEntry app/templates/angular/json/_log4js_configuration.json
+80 silly gunzTarPerm modified mode [ 'app/templates/angular/json/_log4js_configuration.json',
+80 silly gunzTarPerm   438,
+80 silly gunzTarPerm   420 ]
+81 silly gunzTarPerm extractEntry app/templates/angular/misc/editorconfig
+82 silly gunzTarPerm modified mode [ 'app/templates/angular/misc/editorconfig', 438, 420 ]
+83 silly gunzTarPerm extractEntry app/templates/angular/misc/favicon.ico
+84 silly gunzTarPerm modified mode [ 'app/templates/angular/misc/favicon.ico', 438, 420 ]
+85 silly gunzTarPerm extractEntry app/templates/angular/misc/jshintrc
+86 silly gunzTarPerm modified mode [ 'app/templates/angular/misc/jshintrc', 438, 420 ]
+87 silly gunzTarPerm extractEntry app/templates/angular/misc/_.bowerrc
+88 silly gunzTarPerm modified mode [ 'app/templates/angular/misc/_.bowerrc', 438, 420 ]
+89 silly gunzTarPerm extractEntry app/templates/common/_angular.min.js
+90 silly gunzTarPerm modified mode [ 'app/templates/common/_angular.min.js', 438, 420 ]
+91 silly gunzTarPerm extractEntry app/templates/common/_generator.js
+92 silly gunzTarPerm modified mode [ 'app/templates/common/_generator.js', 438, 420 ]
+93 silly gunzTarPerm extractEntry app/templates/common/_gruntfile.js
+94 silly gunzTarPerm modified mode [ 'app/templates/common/_gruntfile.js', 438, 420 ]
+95 silly gunzTarPerm extractEntry app/templates/common/_bg.jpg
+96 silly gunzTarPerm modified mode [ 'app/templates/common/_bg.jpg', 438, 420 ]
+97 silly gunzTarPerm extractEntry app/templates/common/_bootstrap.min.css
+98 silly gunzTarPerm modified mode [ 'app/templates/common/_bootstrap.min.css', 438, 420 ]
+99 silly gunzTarPerm extractEntry app/templates/common/_favicon.ico
+100 silly gunzTarPerm modified mode [ 'app/templates/common/_favicon.ico', 438, 420 ]
+101 silly gunzTarPerm extractEntry app/templates/common/_generator.html
+102 silly gunzTarPerm modified mode [ 'app/templates/common/_generator.html', 438, 420 ]
+103 silly gunzTarPerm extractEntry app/templates/common/_package.json
+104 silly gunzTarPerm modified mode [ 'app/templates/common/_package.json', 438, 420 ]
+105 silly lockFile 795ccae0-7742-0-20339130819775164-package tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\package
+106 silly lockFile 795ccae0-7742-0-20339130819775164-package tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\package
+107 silly lockFile 93b79880-7742-0-20339130819775164-tmp-tgz tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\tmp.tgz
+108 silly lockFile 93b79880-7742-0-20339130819775164-tmp-tgz tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\tmp.tgz
+109 verbose tar pack [ 'C:\\Users\\sandeep_ts\\AppData\\Roaming\\npm-cache\\generator-hybridapp\\0.0.1\\package.tgz',
+109 verbose tar pack   'C:\\Users\\sandeep_ts\\AppData\\Local\\Temp\\npm-1872-tHpWSin_\\1402047967742-0.20339130819775164\\package' ]
+110 verbose tarball C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz
+111 verbose folder C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\package
+112 silly lockFile 795ccae0-7742-0-20339130819775164-package tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\package
+113 verbose lock tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\package C:\Users\sandeep_ts\AppData\Roaming\npm-cache\795ccae0-7742-0-20339130819775164-package.lock
+114 silly lockFile 25efc794-ator-hybridapp-0-0-1-package-tgz tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz
+115 verbose lock tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz C:\Users\sandeep_ts\AppData\Roaming\npm-cache\25efc794-ator-hybridapp-0-0-1-package-tgz.lock
+116 silly lockFile 795ccae0-7742-0-20339130819775164-package tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\package
+117 silly lockFile 795ccae0-7742-0-20339130819775164-package tar://C:\Users\sandeep_ts\AppData\Local\Temp\npm-1872-tHpWSin_\1402047967742-0.20339130819775164\package
+118 silly lockFile 25efc794-ator-hybridapp-0-0-1-package-tgz tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz
+119 silly lockFile 25efc794-ator-hybridapp-0-0-1-package-tgz tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz
+120 silly lockFile b90e7320-enerator-hybridapp-0-0-1-package C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package
+121 verbose lock C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package C:\Users\sandeep_ts\AppData\Roaming\npm-cache\b90e7320-enerator-hybridapp-0-0-1-package.lock
+122 silly lockFile b90e7320-enerator-hybridapp-0-0-1-package C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package
+123 silly lockFile b90e7320-enerator-hybridapp-0-0-1-package C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package
+124 verbose tar unpack C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz
+125 silly lockFile 66517026-enerator-hybridapp-0-0-1-package tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package
+126 verbose lock tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package C:\Users\sandeep_ts\AppData\Roaming\npm-cache\66517026-enerator-hybridapp-0-0-1-package.lock
+127 silly lockFile 25efc794-ator-hybridapp-0-0-1-package-tgz tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz
+128 verbose lock tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz C:\Users\sandeep_ts\AppData\Roaming\npm-cache\25efc794-ator-hybridapp-0-0-1-package-tgz.lock
+129 silly gunzTarPerm modes [ '755', '644' ]
+130 silly gunzTarPerm extractEntry package.json
+131 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+132 silly gunzTarPerm extractEntry README.md
+133 silly gunzTarPerm modified mode [ 'README.md', 438, 420 ]
+134 silly gunzTarPerm extractEntry app/index.js
+135 silly gunzTarPerm modified mode [ 'app/index.js', 438, 420 ]
+136 silly gunzTarPerm extractEntry app/config.json
+137 silly gunzTarPerm modified mode [ 'app/config.json', 438, 420 ]
+138 silly gunzTarPerm extractEntry app/templates/angular/css/_main.css
+139 silly gunzTarPerm modified mode [ 'app/templates/angular/css/_main.css', 438, 420 ]
+140 silly gunzTarPerm extractEntry app/templates/angular/css/_section.css
+141 silly gunzTarPerm modified mode [ 'app/templates/angular/css/_section.css', 438, 420 ]
+142 silly gunzTarPerm extractEntry app/templates/angular/htmls/_body.html
+143 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_body.html', 438, 420 ]
+144 silly gunzTarPerm extractEntry app/templates/angular/htmls/_footer.html
+145 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_footer.html', 438, 420 ]
+146 silly gunzTarPerm extractEntry app/templates/angular/htmls/_header.html
+147 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_header.html', 438, 420 ]
+148 silly gunzTarPerm extractEntry app/templates/angular/htmls/_login.html
+149 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_login.html', 438, 420 ]
+150 silly gunzTarPerm extractEntry app/templates/angular/htmls/_menu.html
+151 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_menu.html', 438, 420 ]
+152 silly gunzTarPerm extractEntry app/templates/angular/htmls/_section.html
+153 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_section.html', 438, 420 ]
+154 silly gunzTarPerm extractEntry app/templates/angular/htmls/_view.html
+155 silly gunzTarPerm modified mode [ 'app/templates/angular/htmls/_view.html', 438, 420 ]
+156 silly gunzTarPerm extractEntry app/templates/angular/images/_loader.gif
+157 silly gunzTarPerm modified mode [ 'app/templates/angular/images/_loader.gif', 438, 420 ]
+158 silly gunzTarPerm extractEntry app/templates/angular/js/_app.js
+159 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_app.js', 438, 420 ]
+160 silly gunzTarPerm extractEntry app/templates/angular/js/_commonServices.js
+161 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_commonServices.js', 438, 420 ]
+162 silly gunzTarPerm extractEntry app/templates/angular/js/_Controller.js
+163 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_Controller.js', 438, 420 ]
+164 silly gunzTarPerm extractEntry app/templates/angular/js/_errorHandler.js
+165 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_errorHandler.js', 438, 420 ]
+166 silly gunzTarPerm extractEntry app/templates/angular/js/_gruntfile.js
+167 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_gruntfile.js', 438, 420 ]
+168 silly gunzTarPerm extractEntry app/templates/angular/js/_interceptor.js
+169 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_interceptor.js', 438, 420 ]
+170 silly gunzTarPerm extractEntry app/templates/angular/js/_loginController.js
+171 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_loginController.js', 438, 420 ]
+172 silly gunzTarPerm extractEntry app/templates/angular/js/_mainController.js
+173 silly gunzTarPerm modified mode [ 'app/templates/angular/js/_mainController.js', 438, 420 ]
+174 silly gunzTarPerm extractEntry app/templates/angular/json/_app.json
+175 silly gunzTarPerm modified mode [ 'app/templates/angular/json/_app.json', 438, 420 ]
+176 silly gunzTarPerm extractEntry app/templates/angular/json/_bower.json
+177 silly gunzTarPerm modified mode [ 'app/templates/angular/json/_bower.json', 438, 420 ]
+178 silly gunzTarPerm extractEntry app/templates/angular/json/_config.json
+179 silly gunzTarPerm modified mode [ 'app/templates/angular/json/_config.json', 438, 420 ]
+180 silly gunzTarPerm extractEntry app/templates/angular/json/_log4js_configuration.json
+181 silly gunzTarPerm modified mode [ 'app/templates/angular/json/_log4js_configuration.json',
+181 silly gunzTarPerm   438,
+181 silly gunzTarPerm   420 ]
+182 silly gunzTarPerm extractEntry app/templates/angular/misc/editorconfig
+183 silly gunzTarPerm modified mode [ 'app/templates/angular/misc/editorconfig', 438, 420 ]
+184 silly gunzTarPerm extractEntry app/templates/angular/misc/favicon.ico
+185 silly gunzTarPerm modified mode [ 'app/templates/angular/misc/favicon.ico', 438, 420 ]
+186 silly gunzTarPerm extractEntry app/templates/angular/misc/jshintrc
+187 silly gunzTarPerm modified mode [ 'app/templates/angular/misc/jshintrc', 438, 420 ]
+188 silly gunzTarPerm extractEntry app/templates/angular/misc/_.bowerrc
+189 silly gunzTarPerm modified mode [ 'app/templates/angular/misc/_.bowerrc', 438, 420 ]
+190 silly gunzTarPerm extractEntry app/templates/common/_angular.min.js
+191 silly gunzTarPerm modified mode [ 'app/templates/common/_angular.min.js', 438, 420 ]
+192 silly gunzTarPerm extractEntry app/templates/common/_generator.js
+193 silly gunzTarPerm modified mode [ 'app/templates/common/_generator.js', 438, 420 ]
+194 silly gunzTarPerm extractEntry app/templates/common/_gruntfile.js
+195 silly gunzTarPerm modified mode [ 'app/templates/common/_gruntfile.js', 438, 420 ]
+196 silly gunzTarPerm extractEntry app/templates/common/_bg.jpg
+197 silly gunzTarPerm modified mode [ 'app/templates/common/_bg.jpg', 438, 420 ]
+198 silly gunzTarPerm extractEntry app/templates/common/_bootstrap.min.css
+199 silly gunzTarPerm modified mode [ 'app/templates/common/_bootstrap.min.css', 438, 420 ]
+200 silly gunzTarPerm extractEntry app/templates/common/_favicon.ico
+201 silly gunzTarPerm modified mode [ 'app/templates/common/_favicon.ico', 438, 420 ]
+202 silly gunzTarPerm extractEntry app/templates/common/_generator.html
+203 silly gunzTarPerm modified mode [ 'app/templates/common/_generator.html', 438, 420 ]
+204 silly gunzTarPerm extractEntry app/templates/common/_package.json
+205 silly gunzTarPerm modified mode [ 'app/templates/common/_package.json', 438, 420 ]
+206 silly lockFile 66517026-enerator-hybridapp-0-0-1-package tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package
+207 silly lockFile 66517026-enerator-hybridapp-0-0-1-package tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package
+208 silly lockFile 25efc794-ator-hybridapp-0-0-1-package-tgz tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz
+209 silly lockFile 25efc794-ator-hybridapp-0-0-1-package-tgz tar://C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz
+210 verbose chmod C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz 644
+211 silly chown skipping for windows C:\Users\sandeep_ts\AppData\Roaming\npm-cache\generator-hybridapp\0.0.1\package.tgz
+212 silly lockFile 3a52ce78- .
+213 silly lockFile 3a52ce78- .
+214 silly publish { name: 'generator-hybridapp',
+214 silly publish   version: '0.0.1',
+214 silly publish   description: 'Yeoman generator',
+214 silly publish   license: 'MIT',
+214 silly publish   main: 'app/index.js',
+214 silly publish   repository:
+214 silly publish    { type: 'git',
+214 silly publish      url: 'git://github.com/sandeeptharayilGit/generator-hybridapp' },
+214 silly publish   author:
+214 silly publish    { name: 'Sandeep Tharayil',
+214 silly publish      email: 'sandeeptharayil@outlook.com',
+214 silly publish      url: 'https://github.com/sandeeptharayilGit' },
+214 silly publish   engines: { node: '>=0.10.0' },
+214 silly publish   scripts: { test: 'mocha' },
+214 silly publish   files: [ 'app' ],
+214 silly publish   keywords: [ 'yeoman-generator' ],
+214 silly publish   dependencies:
+214 silly publish    { 'yeoman-generator': '~0.16.0',
+214 silly publish      chalk: '~0.4.0',
+214 silly publish      yosay: '^0.1.0',
+214 silly publish      rimraf: '~2.2.8' },
+214 silly publish   devDependencies: { mocha: '*' },
+214 silly publish   peerDependencies: { yo: '>=1.0.0' },
+214 silly publish   readme: '# generator-hybridapp [![Build Status](https://secure.travis-ci.org/sandeeptharayilGit/generator-hybridapp.png?branch=master)](https://travis-ci.org/sandeeptharayilGit/generator-hybridapp)\n\n> [Yeoman](http://yeoman.io) generator\n\n\n## Getting Started\n\n### What is Yeoman?\n\nTrick question. It\'s not a thing. It\'s this guy:\n\n![](http://i.imgur.com/JHaAlBJ.png)\n\nBasically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.\n\nNot every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*\n\n```bash\n$ npm install -g yo\n```\n\n### Yeoman Generators\n\nYeoman travels light. He didn\'t pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.\n\nTo install generator-hybridapp from npm, run:\n\n```bash\n$ npm install -g generator-hybridapp\n```\n\nFinally, initiate the generator:\n\n```bash\n$ yo hybridapp\n```\n\n### Getting To Know Yeoman\n\nYeoman has a heart of gold. He\'s a person with feelings and opinions, but he\'s very easy to work with. If you think he\'s too opinionated, he can be easily convinced.\n\nIf you\'d like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).\n\n\n## License\n\nMIT\n',
+214 silly publish   readmeFilename: 'README.md',
+214 silly publish   bugs: { url: 'https://github.com/sandeeptharayilGit/generator-hybridapp/issues' },
+214 silly publish   homepage: 'https://github.com/sandeeptharayilGit/generator-hybridapp',
+214 silly publish   _id: 'generator-hybridapp@0.0.1',
+214 silly publish   dist: { shasum: '184d54b61c1fc32e4c1e7b5b89862cc01ecea615' },
+214 silly publish   _from: '.' }
+215 verbose url raw generator-hybridapp
+216 verbose url resolving [ 'https://registry.npmjs.org/', './generator-hybridapp' ]
+217 verbose url resolved https://registry.npmjs.org/generator-hybridapp
+218 info trying registry request attempt 1 at 15:16:08
+219 http PUT https://registry.npmjs.org/generator-hybridapp
+220 info retry will retry, error on last attempt: Error: connect ETIMEDOUT
+221 info trying registry request attempt 2 at 15:16:40
+222 http PUT https://registry.npmjs.org/generator-hybridapp
+223 info retry will retry, error on last attempt: Error: connect ETIMEDOUT
+224 info trying registry request attempt 3 at 15:18:01
+225 http PUT https://registry.npmjs.org/generator-hybridapp
+226 error publish Failed PUT undefined
+227 error network connect ETIMEDOUT
+227 error network This is most likely not a problem with npm itself
+227 error network and is related to network connectivity.
+227 error network In most cases you are behind a proxy or have bad network settings.
+227 error network
+227 error network If you are behind a proxy, please make sure that the
+227 error network 'proxy' config is set properly.  See: 'npm help config'
+228 error System Windows_NT 6.1.7601
+229 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "publish"
+230 error cwd D:\Yoman\generator-hybridapp
+231 error node -v v0.10.25
+232 error npm -v 1.3.24
+233 error syscall connect
+234 error code ETIMEDOUT
+235 error errno ETIMEDOUT
+236 verbose exit [ 1, true ]

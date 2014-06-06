@@ -29,11 +29,13 @@ To install generator-hybridapp from npm, run:
 $ npm install -g generator-hybridapp
 ```
 
-Finally, initiate the generator:
+Finally, initiate the generator application:
 
 ```bash
 $ yo hybridapp
 ```
+Hybrid app will open a generator view with options. Fill in your application details.
+Click on Generate buttons and see the magic.
 
 ### Getting To Know Yeoman
 

@@ -129,9 +129,14 @@ var HybridappGenerator = yeoman.generators.Base.extend({
         this.template(getFilePath("_interceptor.js"), "app/scripts/services/interceptor.js", this.context);
         this.template(getFilePath("_commonServices.js"), "app/scripts/services/commonServices.js", this.context);
         this.template(getFilePath("_mainController.js"), "app/scripts/controllers/mainController.js", this.context);
+        if(this.context.defaultView_name=='login'){
+          this.template(getFilePath("_loginController.js"), "app/scripts/controllers/loginController.js", this.context);
+          this.template(getFilePath("_login.html"), "app/views/login.html", this.context);
+        }else{
+          this.template(getFilePath("_Controller.js"), "app/scripts/controllers/" + this.context.view_name + "Controller.js", this.context);
+          this.template(getFilePath("_view.html"), "app/views/" + this.context.view_name + ".html", this.context);
+        }
 
-        this.template(getFilePath("_Controller.js"), "app/scripts/controllers/" + this.context.view_name + "Controller.js", this.context);
-        this.template(getFilePath("_view.html"), "app/views/" + this.context.view_name + ".html", this.context);
       }
       done();
     },

@@ -41,6 +41,7 @@ var ViewGenerator = module.exports = function ViewGenerator(args, options, confi
   yeoman.generators.Base.apply(this, arguments);
 
   // in this.options we have the object passed to 'invoke' in app/index.js:
+  this.site_name=that.options.site_name;
   this.appName = that.options.appName;
   this.views = that.options.views;
   this.defaultView = that.options.defaultView;
@@ -78,6 +79,7 @@ ViewGenerator.prototype.files = function files() {
   configObj = JSON.parse(configObj);
 
   this.context = {
+      site_name:(this.site_name||this.appName || packageObj.name),
       app_name : (this.appName || packageObj.name) + 'App',
       view_name : this.name
   };

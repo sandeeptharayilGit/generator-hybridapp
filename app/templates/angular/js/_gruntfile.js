@@ -55,7 +55,13 @@ mountLogger = function(setLog) {
 				}
 			});
 			req.on('end', function() {
-				setLog(JSON.parse(qs.parse(body).message));
+				
+				//console.log(qs.parse(body).message);
+				var ip = req.headers['x-forwarded-for'] || 
+					     req.connection.remoteAddress || 
+					     req.socket.remoteAddress ||
+					     req.connection.socket.remoteAddress;
+				setLog(JSON.parse(qs.parse(body).message),ip);
 			});
 		}
 		res.statusCode = 200;
@@ -82,14 +88,14 @@ module.exports = function(grunt) {
 	    cssmin : {
 		    css : {
 			    files : {
-				    "build/styles/main.css" : [ "app/styles/*.css" ]
+				    "<%= distFolder %>/styles/main.css" : [ "app/styles/*.css" ]
 			    }
 		    }
 	    },
 	    wiredep : {
 		    target : {
 		        // Point to the files that should be updated when you run `grunt wiredep`
-		        src : [ 'build/index.html'  ], // .html support..
+		        src : [ '<%= distFolder %>/index.html'  ], // .html support..
 
 		        // Optional:
 		        // ---------
@@ -111,31 +117,38 @@ module.exports = function(grunt) {
 			        dest : '<%= distFolder %>/'
 			    } ]
 		    }
-	    },
+	    },watch: {
+	 			dev: {
+	 				files: ['<%= srcFolder %>/scripts/**/*.js','<%= srcFolder %>/styles/*.css', '<%= srcFolder %>/images/**', '<%= srcFolder %>/views/**','<%= srcFolder %>/index.html','<%= srcFolder %>/scripts/*.json', '<%= srcFolder %>/scripts/**/*.json'],
+	 				tasks: ['concat', 'ngmin', 'copy', 'cssmin'],
+	 				options: {debounceDelay: 500}
+	 			}
+ 		},
 	    connect : {
 	        server : {
 		        options : {
 		            keepalive : true,
 		            open : true,
 		            port : 9001,
-		            base : 'build',
+		            base : '<%= distFolder %>',
+		            livereload:true,
 		            middleware : function(connect, options) {
 			            var log4js = require('log4js');
 			            log4js.configure('log4js_configuration.json', {});
 			            var logger = log4js.getLogger('appLogger');
 			            logger.setLevel('INFO');
-			            var setLog = function(log) {
+			            var setLog = function(log,ip) {
 				            switch (log.mode) {
-				            case 'trace':logger.trace(log.data);break;
-				            case 'debug':logger.debug(log.data);break;
-				            case 'info':logger.info(log.data);break;
-				            case 'warn':logger.warn(log.data);break;
-				            case 'error':logger.error(log.data);break;
-				            case 'fatal':logger.fatal(log.data);break;
-				            default:logger.info(log.data);
+				            case 'trace':logger.trace(ip,log.data);break;
+				            case 'debug':logger.debug(ip,log.data);break;
+				            case 'info':logger.info(ip,log.data);break;
+				            case 'warn':logger.warn(ip,log.data);break;
+				            case 'error':logger.error(ip,log.data);break;
+				            case 'fatal':logger.fatal(ip,log.data);break;
+				            default:logger.info(ip,log.data);
 				            }
 			            };
-			            return [ mountLogger(setLog), mountFolder(connect, options.base)];
+			            return [ require('connect-livereload')(),mountLogger(setLog), mountFolder(connect, options.base)];
 		            }
 		        }
 	        },
@@ -159,9 +172,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-wiredep');
 	grunt.loadNpmTasks('grunt-ngmin');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('server', [ 'connect:server' ]);
+	grunt.registerTask('server', [ 'connect:server','watch' ]);
 	grunt.registerTask('generator', [ 'connect:generator' ]);
 	grunt.registerTask('build', [ 'concat', 'ngmin', 'copy', 'cssmin', 'wiredep' ]);
-	grunt.registerTask('default', [ 'build','server' ]);
+	grunt.registerTask('default', [ 'build','server','watch' ]);
 }

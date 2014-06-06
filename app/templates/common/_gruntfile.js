@@ -82,14 +82,14 @@ module.exports = function(grunt) {
 	    cssmin : {
 		    css : {
 			    files : {
-				    "build/styles/main.css" : [ "app/styles/*.css" ]
+				    "<%= distFolder %>/styles/main.css" : [ "app/styles/*.css" ]
 			    }
 		    }
 	    },
 	    wiredep : {
 		    target : {
 		        // Point to the files that should be updated when you run `grunt wiredep`
-		        src : [ 'build/index.html'  ], // .html support..
+		        src : [ '<%= distFolder %>/index.html'  ], // .html support..
 
 		        // Optional:
 		        // ---------
@@ -111,14 +111,21 @@ module.exports = function(grunt) {
 			        dest : '<%= distFolder %>/'
 			    } ]
 		    }
-	    },
+	    },watch: {
+	 			dev: {
+	 				files: ['<%= srcFolder %>/scripts/**/*.js','<%= srcFolder %>/styles/*.css', '<%= srcFolder %>/images/**', '<%= srcFolder %>/views/**','<%= srcFolder %>/index.html','<%= srcFolder %>/scripts/*.json', '<%= srcFolder %>/scripts/**/*.json'],
+	 				tasks: ['concat', 'ngmin', 'copy', 'cssmin'],
+	 				options: {debounceDelay: 500}
+	 			}
+ 		},
 	    connect : {
 	        server : {
 		        options : {
 		            keepalive : true,
 		            open : true,
 		            port : 9001,
-		            base : 'build',
+		            base : '<%= distFolder %>',
+		            livereload:true,
 		            middleware : function(connect, options) {
 			            var log4js = require('log4js');
 			            log4js.configure('log4js_configuration.json', {});
@@ -135,7 +142,7 @@ module.exports = function(grunt) {
 				            default:logger.info(log.data);
 				            }
 			            };
-			            return [ mountLogger(setLog), mountFolder(connect, options.base)];
+			            return [ require('connect-livereload')(),mountLogger(setLog), mountFolder(connect, options.base)];
 		            }
 		        }
 	        },
@@ -159,6 +166,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-wiredep');
 	grunt.loadNpmTasks('grunt-ngmin');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('server', [ 'connect:server' ]);
 	grunt.registerTask('generator', [ 'connect:generator' ]);

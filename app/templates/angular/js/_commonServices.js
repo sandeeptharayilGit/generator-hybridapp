@@ -39,17 +39,10 @@ commonSrv.factory('SessionManager',function SessionManager($log,$rootScope){
 
 			if(sessionStorage){                  
 				sessionStorage.setItem(AssociateDetails,(user));  
-				$rootScope.headerVars.isLoggedIn=true;
 			}                       
 		},   
 		clearSession:function(){
 			//$log.info("inside SessionManager->clearSession");
-			$rootScope.headerVars.isLoggedIn=false;
-			$rootScope.balanceAmount = 0;
-			$rootScope.amountPaidUsingCreditCard = 0;
-		    $rootScope.SYWRRedemption = false;
-			$rootScope.showCartIcon = true;
-			$rootScope.headerVars.paymentFlow = false;
 			if(sessionStorage){                  
 				sessionStorage.clear();                        
 			}                        

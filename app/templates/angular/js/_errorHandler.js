@@ -1,16 +1,6 @@
 'use strict';
 var loggerModule = angular.module('logger', []);
 loggerModule.value('ServiceUrl','http://localhost:9001/log'); // provide service url
-/**
- * Service that gives us a nice Angular-esque wrapper around the
- * stackTrace.js pintStackTrace() method. 
- */
-loggerModule.factory("stackTrace",function(){
-	return({
-		getTrace: printStackTrace
-	});
-});
-
 
 loggerModule.service("remoteLogger",function(ServiceUrl){
 	return{
@@ -34,8 +24,8 @@ loggerModule.service("remoteLogger",function(ServiceUrl){
  * it preserves the default behaviour ( logging to the console) but 
  * also posts the error server side after generating a stacktrace.
  */
-loggerModule.factory("remoteExceptionLoggingService",["$log","$window", "stackTrace","remoteLogger",
-                                                       function($log, $window, stackTrace,remoteLogger){
+loggerModule.factory("remoteExceptionLoggingService",["$log","$window", "remoteLogger",
+                                                       function($log, $window, remoteLogger){
 	function error(exception, cause){
 
 		// preserve the default behaviour which will log the error
@@ -47,14 +37,15 @@ loggerModule.factory("remoteExceptionLoggingService",["$log","$window", "stackTr
 			var errorMessage = exception.toString();
 			
 			// use our traceService to generate a stack trace
-			var stackTrace = stackTrace.getTrace({e: exception});
-			var errorData=angular.toJson({
+			var stackTrace = exception.stack;
+			
+			var errorData=angular.toJson({mode:'error',data:{
 				url: $window.location.href,
 				message: errorMessage,
 				type: "exception",
 				stackTrace: stackTrace,
 				cause: ( cause || "")
-			});
+			}} );
 			
 			
 			remoteLogger.pushToServer(errorData);
