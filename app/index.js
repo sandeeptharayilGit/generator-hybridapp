@@ -8,7 +8,7 @@ var filePathArr = {
     json : "/json/",
     gif : "/images/"
 };
-var isGeneratorReady = false;
+var isGeneratorReady = false,gruntfileExists=false;;
 
 var getFilePath = function getFilePath(file) {
   var arr = file.split(".");
@@ -50,10 +50,13 @@ var HybridappGenerator = yeoman.generators.Base.extend({
         if (fs.existsSync(path.join(process.cwd(), 'generator/config.json'))) {
           this.config = require(path.join(process.cwd(), 'generator/config.json'));
           isGeneratorReady=true;
+         
+          if(fs.existsSync(path.join(process.cwd(), 'Gruntfile.js'))){
+              gruntfileExists=true;
+          }
+
         } else {
             isGeneratorReady=false;
-        // this.copy('_generator.js', 'generator.js');
-         //this.log(chalk.yellow.bold('Please run \'node generator.js\' to run the generator'));
 
         }
 
@@ -142,7 +145,9 @@ var HybridappGenerator = yeoman.generators.Base.extend({
     },
     copyFiles : function() {
       if (isGeneratorReady) {
-        this.copy(getFilePath('_gruntfile.js'), 'Gruntfile.js');
+        if(!gruntfileExists)
+          this.copy(getFilePath('_gruntfile.js'), 'Gruntfile.js');
+
         this.copy(getFilePath('editorconfig'), '.editorconfig');
         this.copy(getFilePath('favicon.ico'), 'app/favicon.ico');
         this.copy(getFilePath('jshintrc'), '.jshintrc');

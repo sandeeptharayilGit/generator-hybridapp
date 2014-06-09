@@ -36,6 +36,23 @@
 			<p>Your application is a click away.</p>
 		</div>
 	</div>
+	<div class="container">
+			<!-- Example row of columns -->
+			<div class="row">
+				<div class="col-md-12">
+					<ol class="breadcrumb">
+					  <li>
+					  	<a href="#" ng-click="page=1">Application Details</a>
+					  </li>
+					  <li >
+					  		<a ng-if="page>1" href="#">Views</a>
+					  		<span ng-if="page<2">Views</span>
+					  	</li>
+					  
+					</ol>
+				</div>
+			</div>
+		</div>	
 	<div ng-show="page==1">
 		<div class="container">
 			<!-- Example row of columns -->
