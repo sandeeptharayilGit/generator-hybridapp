@@ -21,7 +21,7 @@ $ npm install -g yo
 
 ### Yeoman Generators
 
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
+Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Angularjs application or even a Chrome extension.
 
 To install generator-hybridapp from npm, run:
 
@@ -36,6 +36,12 @@ $ yo hybridapp
 ```
 Hybrid app will open a generator view with options. Fill in your application details.
 Click on Generate buttons and see the magic.
+
+Currently this generator will generate only Angularjs + Bootstrap projects.
+
+Backbone and Foundation cakes are getting baked in Oven.
+
+We are working on the generator UI to add more flavours and flexibility to disable/enable current features in this generator.
 
 ### Getting To Know Yeoman
 
