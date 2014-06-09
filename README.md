@@ -1,4 +1,4 @@
-# generator-hybridapp [![Build Status](https://secure.travis-ci.org/sandeeptharayilGit/generator-hybridapp.png?branch=master)](https://travis-ci.org/sandeeptharayilGit/generator-hybridapp)
+# generator-hybridapp [![Build Status](https://secure.travis-ci.org/sandeeptharayilGit/generator-hybridapp.png?branch=master)]
 
 > [Yeoman](http://yeoman.io) generator
 
