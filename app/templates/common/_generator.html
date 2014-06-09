@@ -51,6 +51,8 @@
 									<input type="text" ng-model='ConfigData.appName'
 										class="form-control" autocomplete="off">
 								</div>
+								<span style="font-size: smaller;font-family: cursive;">
+									We will be appending 'app'  to application name</span>
 							</div>
 						</div>
 					</div>
@@ -60,13 +62,15 @@
 								<h3 class="panel-title">Front-end MVC Framework</h3>
 							</div>
 							<div class="panel-body" autocomplete="off">
+								<div class="form-group">
 								<select class="form-control" id="framework"
 									ng-model="ConfigData.framework">
 									<option value="{{framework.value}}"
 										ng-selected="{{framework.value==ConfigData.framework}}"
 										ng-repeat="framework in frameworkList">{{framework.text}}</option>
 								</select>
-								<div class="form-group"></div>
+								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -78,13 +82,15 @@
 								<h3 class="panel-title">RWD framework</h3>
 							</div>
 							<div class="panel-body" autocomplete="off">
+								<div class="form-group">
 								<select class="form-control" id="rwd"
 									ng-model="ConfigData.rwdFramework">
 									<option value="{{rwd.value}}"
 										ng-selected="{{rwd.value==ConfigData.rwdFramework}}"
 										ng-repeat="rwd in rwdList">{{rwd.text}}</option>
 								</select>
-								<div class="form-group"></div>
+								</div>
+								<span style="font-size: smaller;font-family: cursive;">&nbsp;</span>
 							</div>
 						</div>
 					</div>
