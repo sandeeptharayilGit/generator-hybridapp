@@ -43,6 +43,18 @@ Backbone and Foundation cakes are getting baked in Oven.
 
 We are working on the generator UI to add more flavours and flexibility to disable/enable current features in this generator.
 
+To start your application you can enter command
+```bash
+$ grunt server
+```
+or 
+```bash
+$ grunt 
+```
+To start generator enter command
+```bash
+$ grunt generator
+```
 ### Getting To Know Yeoman
 
 Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.

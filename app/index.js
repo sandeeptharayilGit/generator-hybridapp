@@ -63,7 +63,7 @@ var HybridappGenerator = yeoman.generators.Base.extend({
       } catch (e) {
         console.log(e);
       }
-      this.appName = this.config.appName;
+      this.appName = this.config.appName.replace(/[^\w\d]/g,'');
       this.bootstrap = this.config.rwdFramework;
       this.framework = this.config.framework;
       framework = this.config.framework;

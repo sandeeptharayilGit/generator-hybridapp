@@ -7,23 +7,23 @@ var fs = require('fs');
 var framework = '';
 
 var filePathArr = {
-    html : "/htmls/",
-    js : "/js/",
-    css : "/css/",
-    json : "/json/",
-    gif : "/images/"
+  html : "/htmls/",
+  js : "/js/",
+  css : "/css/",
+  json : "/json/",
+  gif : "/images/"
 };
 var chalk = require('chalk');
 var getRoute = function(context) {
   return {
-      "settings" : {
-          "templateUrl" : "views/" + context.view_name + ".html",
-          "controller" : context.app_name + "-" + context.view_name + "Cntrl"
-      },
-      "config" : {
-          "header" : "",
-          "bodyColor" : "gray"
-      }
+    "settings" : {
+      "templateUrl" : "views/" + context.view_name + ".html",
+      "controller" : context.app_name + "-" + context.view_name + "Cntrl"
+    },
+    "config" : {
+      "header" : "",
+      "bodyColor" : "gray"
+    }
   };
 };
 var getFilePath = function getFilePath(file) {
@@ -68,7 +68,7 @@ ViewGenerator.prototype.init = function init() {
 
 ViewGenerator.prototype.files = function files() {
   var done = this.async();
-   framework=this.framework;
+  framework=this.framework;
   var packageObj = {};
   if (!this.appName) {
     packageObj = this.readFileAsString('package.json');
@@ -79,20 +79,23 @@ ViewGenerator.prototype.files = function files() {
   configObj = JSON.parse(configObj);
 
   this.context = {
-      site_name:(this.site_name||this.appName || packageObj.name),
-      app_name : (this.appName || packageObj.name) + 'App',
-      view_name : this.name
+    site_name:(this.site_name||this.appName || packageObj.name),
+    app_name : (this.appName || packageObj.name) + 'App',
+    view_name : this.name
   };
   var viewArr = (this.name || this.views).split(',');
+  var viewTmp='';
   for ( var i = 0; i < viewArr.length; i++) {
-    this.context.view_name = viewArr[i];
+    if(viewArr[i].trim().length){
+      viewTmp=this._.humanize(viewArr[i].trim());
+      viewTmp=this._.camelize(viewTmp);
+      this.context.view_name = viewTmp[0].toLowerCase()+viewTmp.slice(1);
 
-    configObj.Global.Routes['/' + this.context.view_name] = getRoute(this.context);
-    this.template(getFilePath("_Controller.js"), "app/scripts/controllers/" + this.context.view_name + "Controller.js", this.context);
-    this.template(getFilePath("_view.html"), "app/views/" + this.context.view_name + ".html", this.context);
-
-  }
-  ;
+      configObj.Global.Routes['/' + this.context.view_name] = getRoute(this.context);
+      this.template(getFilePath("_Controller.js"), "app/scripts/controllers/" + this.context.view_name + "Controller.js", this.context);
+      this.template(getFilePath("_view.html"), "app/views/" + this.context.view_name + ".html", this.context);
+    }
+  };
   var self = this;
   rimraf('app/scripts/config.json', function() {
     self.write('app/scripts/config.json', JSON.stringify(configObj, null, '\t'));

@@ -80,34 +80,50 @@ mountLogger = function(loggerObj) {
 
 module.exports = function(grunt) {
 	grunt.initConfig({
-	    distFolder : 'build',
-	    srcFolder : 'app',
-	    concat : {
-		    app : {
-		        src : [ '<%= srcFolder %>/scripts/*.js', '<%= srcFolder %>/scripts/**/*.js' ],
-		        dest : '<%= distFolder %>/scripts/app.js'
-		    }
-	    },
-	    ngmin : {
-		    min : {
-		        src : [ '<%= distFolder %>/scripts/app.js' ],
-		        dest : '<%= distFolder %>/scripts/app.js'
-		    }
-	    },
-	    cssmin : {
-		    css : {
-			    files : {
-				    "<%= distFolder %>/styles/main.css" : [ "app/styles/*.css" ]
-			    }
-		    }
-	    },
-	    wiredep : {
-		    target : {
+		distFolder : 'build',
+		srcFolder : 'app',
+		cssmin : {
+			css : {
+				files : {
+					"<%= distFolder %>/styles/main.css" : [ "app/styles/*.css" ]
+				}
+			}
+		},
+		htmlbuild: {
+			dist: {
+				src: '<%= srcFolder %>/index.html',
+				dest: '<%= distFolder %>/',
+				options: {
+					beautify: true,
+					relative: false,
+					scripts: {
+						app: {
+							cwd: '<%= srcFolder %>/',files: ['scripts/app.js']
+						},
+						controllers: {
+							cwd: '<%= srcFolder %>/',files: ['scripts/controllers/*.js']
+						},
+						services: {
+							cwd: '<%= srcFolder %>/',files: ['scripts/services/*.js']
+						},
+						directives: {
+							cwd: '<%= srcFolder %>/',files: ['scripts/directives/*.js']
+						},
+						filters: {
+							cwd: '<%= srcFolder %>/',files: ['scripts/filters/*.js']
+						},
+						misc: {
+							cwd: '<%= srcFolder %>/',
+							files: ['scripts/**/*.js','!scripts/app.js','!scripts/controllers/*.js','!scripts/services/*.js','!scripts/directives/*.js','!scripts/filters/*.js']
+						}
+					}
+				}
+			}
+		},
+		wiredep : {
+			target : {
 		        // Point to the files that should be updated when you run `grunt wiredep`
 		        src : [ '<%= distFolder %>/index.html'  ], // .html support..
-
-		        // Optional:
-		        // ---------
 		        cwd : '',
 		        dependencies : true,
 		        devDependencies : false,
@@ -116,103 +132,117 @@ module.exports = function(grunt) {
 		        ignorePath : '',
 		        overrides : {}
 		    }
-	    },
-	    copy : {
-		    all : {
-			    files : [ {
-			        expand : true,
-			        cwd : '<%= srcFolder %>/',
-			        src : [ 'images/**', 'views/**', 'scripts/json/**', 'favicon.ico', 'index.html', 'scripts/config.json' ],
-			        dest : '<%= distFolder %>/'
-			    } ]
-		    },
-		     others : {
-			    files : [ {
-			        expand : true,
-			        cwd : '<%= srcFolder %>/',
-			        src : [ 'images/**', 'scripts/json/**', 'scripts/config.json' ],
-			        dest : '<%= distFolder %>/'
-			    } ]
-		    },
-		    htmls : {
-			    files : [ {
-			        expand : true,
-			        cwd : '<%= srcFolder %>/',
-			        src : [ 'views/**','index.html'],
-			        dest : '<%= distFolder %>/'
-			    } ]
-		    }
-	    },watch: {
-	    	options: {
-						debounceDelay: 250,
-						livereload: LIVERELOAD_PORT,
-						 cwd : '<%= srcFolder %>/'
-            		},
-	 			scripts: {
-	 				files: ['scripts/{,*/}/*.js'],
-	 				tasks: ['concat', 'ngmin']
-	 				
-	 			},
-	 			css: {
-	 				files: ['styles/*.css'],
-	 				tasks: ['cssmin']
-	 			},
-	 			htmls: {
-	 				files: ['views/**','index.html'],
-	 				tasks: ['copy:htmls','wiredep']
-	 			},
-	 			others: {
-	 				files: ['images/**', 'scripts/*.json','scripts/**/*.json'],
-	 				tasks: ['copy:others' ]
-	 			}
- 		},
-	    connect : {
-	        server : {
-		        options : {
-		           
-		            open : true,
-		            port : 9001,
-		            base : '<%= distFolder %>',
-		            livereload:true,
-		            middleware : function(connect, options) {
-		            	if(!isLoggerLoaded)
-			            {
-			            	log4js = require('log4js');
-			            	log4js.configure(log4jsConf, {});
-			            	logger = log4js.getLogger(loggerName);
-			            	logger.setLevel(LEVEL);
-			            	isLoggerLoaded=true;
-			            	console.log('logger inialised for '+loggerName);
-			        	}
-			          
-			            return [ require('connect-livereload')(),mountLogger(logger), mountFolder(connect, options.base)];
-		            }
-		        }
-	        },
-	        generator : {
-		        options : {
-		            keepalive : true,
-		            open : true,
-		            port : 7777,
-		            base : 'generator',
-		            middleware : function(connect, options) {
-			            return [ mountGenerate, mountFolder(connect, options.base)];
-		            }
-		        }
-	        }
-	    }
-	});
+		},
+		copy : {
+			all : {
+				files : [ {
+					expand : true,cwd : '<%= srcFolder %>/',
+					src : [ 'images/**', 'views/**', 'scripts/**', 'favicon.ico', 'index.html' ],
+					dest : '<%= distFolder %>/'
+				} ]
+			},
+			others : {
+				files : [ {
+					expand : true,cwd : '<%= srcFolder %>/',
+					src : [ 'images/**', 'scripts/json/**', 'scripts/config.json' ],
+					dest : '<%= distFolder %>/'
+				} ]
+			},
+			js : {
+				files : [ {
+					expand : true,cwd : '<%= srcFolder %>/',
+					src : [ 'scripts/**/*.js','scripts/app.js'],
+					dest : '<%= distFolder %>/'
+				} ]
+			},
+			htmls : {
+				files : [ {
+					expand : true,cwd : '<%= srcFolder %>/',
+					src : [ 'views/**'],
+					dest : '<%= distFolder %>/'
+				} ]
+			},
+			indexhtml : {
+				files : [ {
+					expand : true,cwd : '<%= srcFolder %>/',
+					src : ['index.html'],
+					dest : '<%= distFolder %>/'
+				} ]
+			}
+		},
+		watch: {
+			options: {
+				debounceDelay: 250,
+				livereload: LIVERELOAD_PORT,
+				cwd : '<%= srcFolder %>/'
+			},
+			scripts: {
+				files: ['scripts/{,*/}/*.js'],
+				tasks: ['copy:js', 'htmlbuild','wiredep']
+			},
+			css: {
+				files: ['styles/*.css'],
+				tasks: ['cssmin']
+			},
+			htmls: {
+				files: ['views/**'],
+				tasks: ['copy:htmls']
+			},
+			indexhtml: {
+				files: ['index.html'],
+				tasks: ['copy:indexhtml','htmlbuild','wiredep']
+			},
+			others: {
+				files: ['images/**', 'scripts/*.json','scripts/**/*.json'],
+				tasks: ['copy:others' ]
+			}
+	},
+	connect : {
+		server : {
+			options : {
 
-	grunt.loadNpmTasks('grunt-contrib-connect');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-wiredep');
-	grunt.loadNpmTasks('grunt-ngmin');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-watch');
+				open : true,
+				port : 9001,
+				base : '<%= distFolder %>',
+				livereload:true,
+				middleware : function(connect, options) {
+					if(!isLoggerLoaded)
+					{
+						log4js = require('log4js');
+						log4js.configure(log4jsConf, {});
+						logger = log4js.getLogger(loggerName);
+						logger.setLevel(LEVEL);
+						isLoggerLoaded=true;
+						console.log('logger inialised for '+loggerName);
+					}
 
-	grunt.registerTask('server', [ 'connect:server','watch' ]);
-	grunt.registerTask('generator', [ 'connect:generator' ]);
-	grunt.registerTask('build', [ 'concat', 'ngmin', 'copy:all', 'cssmin', 'wiredep' ]);
-	grunt.registerTask('default', [ 'build','server' ]);
+					return [ require('connect-livereload')(),mountLogger(logger), mountFolder(connect, options.base)];
+				}
+			}
+		},
+		generator : {
+			options : {
+				keepalive : true,
+				open : true,
+				port : 7777,
+				base : 'generator',
+				middleware : function(connect, options) {
+					return [ mountGenerate, mountFolder(connect, options.base)];
+				}
+			}
+		}
+	}
+});
+
+grunt.loadNpmTasks('grunt-contrib-connect');
+grunt.loadNpmTasks('grunt-contrib-cssmin');
+grunt.loadNpmTasks('grunt-wiredep');
+grunt.loadNpmTasks('grunt-contrib-copy');
+grunt.loadNpmTasks('grunt-contrib-watch');
+grunt.loadNpmTasks('grunt-html-build');
+
+grunt.registerTask('server', [ 'connect:server','watch' ]);
+grunt.registerTask('generator', [ 'connect:generator' ]);
+grunt.registerTask('build', [ 'copy:all', 'cssmin', 'htmlbuild','wiredep' ]);
+grunt.registerTask('default', [ 'build','server' ]);
 }
