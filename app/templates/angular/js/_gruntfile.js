@@ -1,5 +1,8 @@
 var qs = require('querystring');
 var fs = require('fs');
+var LIVERELOAD_PORT = 35729;
+var log4js,logger,isLoggerLoaded=false,
+loggerName='appLogger',LEVEL='INFO',log4jsConf='log4js_configuration.json';
 var generateApp = function(data) {
 	console.log(data);
 	fs.writeFile("generator/config.json", JSON.stringify(data, null, '\t'), function(err) {
@@ -39,7 +42,19 @@ mountGenerate = function(req, res, next) {
 	res.statusCode = 200;
 	res.end();
 },
-mountLogger = function(setLog) {
+mountLogger = function(loggerObj) {
+	var setLog = function(log) {
+		switch (log.mode) {
+			case 'trace':loggerObj.trace(log.data);break;
+			case 'debug':loggerObj.debug(log.data);break;
+			case 'info':loggerObj.info(log.data);break;
+			case 'log':loggerObj.info(log.data);break;
+			case 'warn':loggerObj.warn(log.data);break;
+			case 'error':loggerObj.error(log.data);break;
+			case 'fatal':loggerObj.fatal(log.data);break;
+			default:loggerObj.info(log.data);
+		}
+	};
 	return function(req, res, next) {
 		console.log("Requesting... " + req.url);
 		if (req.url !== '/log') return next();
@@ -55,13 +70,7 @@ mountLogger = function(setLog) {
 				}
 			});
 			req.on('end', function() {
-				
-				//console.log(qs.parse(body).message);
-				var ip = req.headers['x-forwarded-for'] || 
-					     req.connection.remoteAddress || 
-					     req.socket.remoteAddress ||
-					     req.connection.socket.remoteAddress;
-				setLog(JSON.parse(qs.parse(body).message),ip);
+				setLog(JSON.parse(qs.parse(body).message));
 			});
 		}
 		res.statusCode = 200;
@@ -109,46 +118,74 @@ module.exports = function(grunt) {
 		    }
 	    },
 	    copy : {
-		    main : {
+		    all : {
 			    files : [ {
 			        expand : true,
 			        cwd : '<%= srcFolder %>/',
 			        src : [ 'images/**', 'views/**', 'scripts/json/**', 'favicon.ico', 'index.html', 'scripts/config.json' ],
 			        dest : '<%= distFolder %>/'
 			    } ]
+		    },
+		     others : {
+			    files : [ {
+			        expand : true,
+			        cwd : '<%= srcFolder %>/',
+			        src : [ 'images/**', 'scripts/json/**', 'scripts/config.json' ],
+			        dest : '<%= distFolder %>/'
+			    } ]
+		    },
+		    htmls : {
+			    files : [ {
+			        expand : true,
+			        cwd : '<%= srcFolder %>/',
+			        src : [ 'views/**','index.html'],
+			        dest : '<%= distFolder %>/'
+			    } ]
 		    }
 	    },watch: {
-	 			dev: {
-	 				files: ['<%= srcFolder %>/scripts/**/*.js','<%= srcFolder %>/styles/*.css', '<%= srcFolder %>/images/**', '<%= srcFolder %>/views/**','<%= srcFolder %>/index.html','<%= srcFolder %>/scripts/*.json', '<%= srcFolder %>/scripts/**/*.json'],
-	 				tasks: ['concat', 'ngmin', 'copy', 'cssmin'],
-	 				options: {debounceDelay: 500}
+	    	options: {
+						debounceDelay: 250,
+						livereload: LIVERELOAD_PORT,
+						 cwd : '<%= srcFolder %>/'
+            		},
+	 			scripts: {
+	 				files: ['scripts/{,*/}/*.js'],
+	 				tasks: ['concat', 'ngmin']
+	 				
+	 			},
+	 			css: {
+	 				files: ['styles/*.css'],
+	 				tasks: ['cssmin']
+	 			},
+	 			htmls: {
+	 				files: ['views/**','index.html'],
+	 				tasks: ['copy:htmls','wiredep']
+	 			},
+	 			others: {
+	 				files: ['images/**', 'scripts/*.json','scripts/**/*.json'],
+	 				tasks: ['copy:others' ]
 	 			}
  		},
 	    connect : {
 	        server : {
 		        options : {
-		            keepalive : true,
+		           
 		            open : true,
 		            port : 9001,
 		            base : '<%= distFolder %>',
 		            livereload:true,
 		            middleware : function(connect, options) {
-			            var log4js = require('log4js');
-			            log4js.configure('log4js_configuration.json', {});
-			            var logger = log4js.getLogger('appLogger');
-			            logger.setLevel('INFO');
-			            var setLog = function(log,ip) {
-				            switch (log.mode) {
-				            case 'trace':logger.trace(ip,log.data);break;
-				            case 'debug':logger.debug(ip,log.data);break;
-				            case 'info':logger.info(ip,log.data);break;
-				            case 'warn':logger.warn(ip,log.data);break;
-				            case 'error':logger.error(ip,log.data);break;
-				            case 'fatal':logger.fatal(ip,log.data);break;
-				            default:logger.info(ip,log.data);
-				            }
-			            };
-			            return [ require('connect-livereload')(),mountLogger(setLog), mountFolder(connect, options.base)];
+		            	if(!isLoggerLoaded)
+			            {
+			            	log4js = require('log4js');
+			            	log4js.configure(log4jsConf, {});
+			            	logger = log4js.getLogger(loggerName);
+			            	logger.setLevel(LEVEL);
+			            	isLoggerLoaded=true;
+			            	console.log('logger inialised for '+loggerName);
+			        	}
+			          
+			            return [ require('connect-livereload')(),mountLogger(logger), mountFolder(connect, options.base)];
 		            }
 		        }
 	        },
@@ -176,6 +213,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('server', [ 'connect:server','watch' ]);
 	grunt.registerTask('generator', [ 'connect:generator' ]);
-	grunt.registerTask('build', [ 'concat', 'ngmin', 'copy', 'cssmin', 'wiredep' ]);
-	grunt.registerTask('default', [ 'build','server','watch' ]);
+	grunt.registerTask('build', [ 'concat', 'ngmin', 'copy:all', 'cssmin', 'wiredep' ]);
+	grunt.registerTask('default', [ 'build','server' ]);
 }

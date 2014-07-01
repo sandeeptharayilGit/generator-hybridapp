@@ -30,7 +30,7 @@
 
 <body ng-controller="mainController">
 	<div id="jumbo" class="jumbotron"
-		style="padding-top: 3%; padding-bottom: 3%;">
+		style="padding-top: 1%; padding-bottom: 0%;">
 		<div class="container">
 			<h1>Hybrid Application Generator!</h1>
 			<p>Your application is a click away.</p>
@@ -42,11 +42,15 @@
 				<div class="col-md-12">
 					<ol class="breadcrumb">
 					  <li>
-					  	<a href="#" ng-click="page=1">Application Details</a>
+					  	<a  href="#" ng-click="page=1">Application Details</a>
 					  </li>
-					  <li >
-					  		<a ng-if="page>1" href="#">Views</a>
-					  		<span ng-if="page<2">Views</span>
+					  <li>
+					  		<a href="#" ng-click="page=2" ng-if="page>1">Views</a>
+					  		<span ng-if="page<2" >Views</span>
+					  	</li>
+					  	<li>
+					  		<a ng-if="page>2" href="#">Utilities</a>
+					  		<span ng-if="page<3">Utilities</span>
 					  	</li>
 					  
 					</ol>
@@ -137,7 +141,7 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">Views</h3>
 						</div>
-						<div class="panel-body" autocomplete="off">
+						<div class="panel-body" autocomplete="off" style="overflow: auto;height: 250px;">
 							<div class="form-group">
 								<label> Welcome page </label> <input type="text"
 									autocomplete="off" ng-model="ConfigData.defaultView"
@@ -166,10 +170,41 @@
 </div>
 
 	</div>
+	<div ng-show="page==3">
+<div class="container">
+		<!-- Example row of columns -->
+		<div class="row">
+			<div class="col-md-6">
+				
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Utilities</h3>
+						</div>
+						<div class="panel-body" autocomplete="off">
+							<div class="form-group">
+								<br>
+								<div class="row" ng-repeat="util in utilsList track by $index">
+									<div class="col-md-1">
+										<input type="checkbox" ng-model="ConfigData.utils[util.name]" class="pull-left"/></div>
+									<div class="col-md-11">
+										<span>{{util.text}}</span> 
+										</div>
+									
+								</div>
+								<br>
+							</div>
+						</div>
+					</div>
+							</div>
+			<div class="col-md-6"></div>
+		</div>
+</div>
+
+	</div>
 	<div class="row">
 		<div class="col-md-4"></div>
 
-		<div class="col-md-4 alert alert-danger" ng-show="error"
+		<div class="col-md-4 alert {{errorClass}}" ng-show="error"
 			style="text-align: center;">
 			<strong>{{errorMessage}}</strong>
 		</div>
@@ -183,9 +218,9 @@
 		<div class="row">
 			<div ng-class="{true:'col-md-4', false:'col-md-2'}[page==1]"></div>
 			<button class="col-md-4 btn btn-success btn-lg" ng-show="page>1"
-				ng-click="page=page-1">Back</button>
+				ng-click="page=page-1;error=false">Back</button>
 			<button class="col-md-4 btn btn-success btn-lg"
-				ng-click="buttonclick()">{{page<2?"Next":"Generate"}}</button>
+				ng-click="buttonclick()">{{page<3?"Next":"Generate"}}</button>
 
 
 			<div ng-class=" {true:'col-md-4', false:'col-md-2'}[page==1]">
