@@ -227,7 +227,7 @@ module.exports = function(grunt) {
 				port : 7777,
 				base : 'generator',
 				middleware : function(connect, options) {
-					return [ mountGenerate, mountFolder(connect, options.base)];
+					return [connect.favicon('generator/favicon.ico'), mountGenerate, mountFolder(connect, options.base)];
 				}
 			}
 		}
